@@ -1,6 +1,6 @@
 # devise_security_ng
 
-It adds security features to devise[http://github.com/plataformatec/devise]
+It adds security features to [devise](http://github.com/plataformatec/devise)
 
 ## Installation
 
