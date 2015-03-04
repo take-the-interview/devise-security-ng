@@ -9,11 +9,11 @@ Gem::Specification.new do |s|
   s.version     = DeviseSecurityNg::VERSION
   s.authors     = ["Alen Komic"]
   s.email       = ["akomic@taketheinterview.com"]
-  s.homepage    = "http://www.aksiom.net"
+  s.homepage    = "https://github.com/take-the-interview/devise_security_ng"
   s.summary     = "Devise Security NG version with complex locking mechanism."
   s.description = "Devise Security NG with complex locking mechanism"
 
-  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir["{app,config,db,lib}/**/*", "LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["test/**/*"]
 
   s.licenses = ["MIT"]
