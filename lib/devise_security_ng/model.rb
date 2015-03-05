@@ -43,8 +43,8 @@ module Devise
         if super && !access_locked?
           true
         else
+          self.login_attempts ||= 0
           if !!self.lockable
-            self.login_attempts ||= 0
             self.login_attempts += 1
           end
           if attempts_exceeded? && !access_locked?
