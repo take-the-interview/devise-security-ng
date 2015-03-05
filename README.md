@@ -20,12 +20,14 @@ $ bundle install
 
 For devise_security_ng to work some of the built-in modules have to be turned off in user model:
 
-	- Lockable
+- Lockable
 
 Generate migrations
 ```
 $ rails g devise_security_ng User
+$ rake db:migrate
 ```
+
 in User Model add :devise_security_ng
 
 ```
