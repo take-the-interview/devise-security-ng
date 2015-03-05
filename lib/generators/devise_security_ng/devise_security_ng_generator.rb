@@ -26,4 +26,13 @@ class DeviseSecurityNgGenerator < Rails::Generators::NamedBase
   def create_migration_file
     migration_template 'migration.rb', "db/migrate/devise_add_security_ng_#{name.downcase}.rb"
   end
+
+  def add_configs
+    inject_into_file "config/initializers/devise.rb", "\n  # ==> Security NG\n  # Configure security ng for devise\n\n" +
+    "  # Maximum login attempts before first lock\n" +
+    "  # config.maximum_login_attempts = 3\n\n" +
+    "  # Should we alert the user of imminent account locking?\n" +
+    "  # config.last_attempt_warning = true\n\n" +
+    "", :before => /end[ |\n|]+\Z/
+  end
 end

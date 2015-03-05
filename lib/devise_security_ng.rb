@@ -11,6 +11,10 @@ module Devise
   # Should we alert the user of imminent account locking?
   mattr_accessor :last_attempt_warning
   @@last_attempt_warning = true
+
+  # Activation flag
+  mattr_accessor :user_lockable
+  @@user_lockable = true
 end
 
 Devise.add_module :security_ng, :model => 'devise_security_ng/model'

@@ -4,4 +4,3 @@ Warden::Manager.after_authentication do |user, auth, opts|
     user.locked_at=nil
   end
 end
-

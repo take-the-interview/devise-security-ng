@@ -1,11 +1,11 @@
-require 'devise_lockable_extended/hooks/lockable_extended'
+require 'devise_security_ng/hooks/security_ng'
 
 module Devise
   module Models
-    module LockableExtended
+    module SecurityNg
       extend  ActiveSupport::Concern
 
-      # Lock a user setting its locked_at to actual time.
+      # Lock a user
       def lock_access!
         self.locked_at = Time.current
         self.save!
@@ -43,8 +43,10 @@ module Devise
         if super && !access_locked?
           true
         else
-          self.login_attempts ||= 0
-          self.login_attempts += 1
+          if !!self.lockable
+            self.login_attempts ||= 0
+            self.login_attempts += 1
+          end
           if attempts_exceeded? && !access_locked?
             lock_access!
           else
@@ -68,7 +70,7 @@ module Devise
           super
         elsif access_locked? || attempts_exceeded?
           locked_message
-        elsif last_attempt? && self.class.last_attempt_warning
+        elsif last_attempt? && self.class.last_attempt_warning && !!self.lockable
           :last_attempt
         else
           super
