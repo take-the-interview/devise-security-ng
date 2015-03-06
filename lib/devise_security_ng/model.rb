@@ -80,11 +80,11 @@ module Devise
       protected
 
         def attempts_exceeded?
-          self.login_attempts >= self.class.maximum_login_attempts
+          self.login_attempts && self.login_attempts >= self.class.maximum_login_attempts
         end
 
         def last_attempt?
-          self.login_attempts == self.class.maximum_login_attempts - 1
+          self.login_attempts && self.login_attempts == self.class.maximum_login_attempts - 1
         end
 
         def locked_message
