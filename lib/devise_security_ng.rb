@@ -1,8 +1,6 @@
-unless defined?(Devise)
-  require 'devise'
-end
-require 'devise_security_ng'
-require 'devise_security_ng/rails'
+require 'active_record'
+require 'active_support/concern'
+require 'devise'
 
 module Devise
   mattr_accessor :maximum_login_attempts
@@ -17,4 +15,10 @@ module Devise
   @@user_lockable = true
 end
 
-Devise.add_module :security_ng, :model => 'devise_security_ng/model'
+Devise.add_module :user_lockable, :model => 'devise_security_ng/models/user_lockable'
+Devise.add_module :password_reusable, :model => 'devise_security_ng/models/password_reusable'
+
+# requires
+require 'devise_security_ng/routes'
+require 'devise_security_ng/rails'
+require 'devise_security_ng/models/old_password'
