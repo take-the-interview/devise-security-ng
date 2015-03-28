@@ -119,7 +119,7 @@ module Devise
         end
 
       module ClassMethods
-        Devise::Models.config(self, :maximum_login_attempts, :last_attempt_warning)
+        ::Devise::Models.config(self, :maximum_login_attempts, :last_attempt_warning)
       end
     end
   end
