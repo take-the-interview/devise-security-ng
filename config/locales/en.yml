@@ -1,4 +1,7 @@
 en:
+  errors:
+    messages:
+      used_in_past: "was already used in the past!"
   devise:
     failure:
       locked: "Your account is locked."

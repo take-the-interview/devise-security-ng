@@ -1,6 +1,7 @@
 require 'active_record'
 require 'active_support/concern'
 require 'devise'
+require 'devise_security_ng'
 
 module Devise
   mattr_accessor :maximum_login_attempts
@@ -13,6 +14,13 @@ module Devise
   # Activation flag
   mattr_accessor :user_lockable
   @@user_lockable = true
+
+  # Passwords to keep in archive, 0 to disable
+  mattr_accessor :password_reusable_after
+  @@password_reusable_after = 5
+end
+
+module DeviseSecurityNg
 end
 
 Devise.add_module :user_lockable, :model => 'devise_security_ng/models/user_lockable'
@@ -21,4 +29,3 @@ Devise.add_module :password_reusable, :model => 'devise_security_ng/models/passw
 # requires
 require 'devise_security_ng/routes'
 require 'devise_security_ng/rails'
-require 'devise_security_ng/models/old_password'
