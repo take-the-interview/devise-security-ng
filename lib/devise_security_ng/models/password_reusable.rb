@@ -33,7 +33,6 @@ module Devise
                   hash_password: Digest::SHA512.hexdigest(self.password),
                   password_salt: salt
                 )
-              binding.pry
               self.old_passwords.order(:id).reverse_order.offset(self.class.password_reusable_after).destroy_all
             end
           else
