@@ -6,6 +6,7 @@ class DeviseAddSecurityNgPasswordReusable<%= table_name.camelize.singularize %> 
       t.string :password_salt
       t.integer :password_reusable_id, null: false
       t.integer :password_reusable_type, null: false
+      t.boolean :password_reusable, default: false
 
       t.timestamps
     end
