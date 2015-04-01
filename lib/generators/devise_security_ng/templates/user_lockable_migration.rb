@@ -1,4 +1,4 @@
-class DeviseAddSecurityNg<%= table_name.camelize.singularize %> < ActiveRecord::Migration
+class DeviseAddSecurityNgUserLockable<%= table_name.camelize.singularize %> < ActiveRecord::Migration
   def self.up
     add_column :<%= table_name %>, :locked_at, :datetime
     add_column :<%= table_name %>, :login_attempts, :integer

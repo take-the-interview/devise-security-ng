@@ -1,8 +1,8 @@
-require 'devise_security_ng/hooks/security_ng'
+require 'devise_security_ng/hooks/user_lockable'
 
 module Devise
   module Models
-    module SecurityNg
+    module UserLockable
       extend  ActiveSupport::Concern
 
       # Lock a user
