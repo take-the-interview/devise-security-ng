@@ -19,12 +19,12 @@ module Devise
       end
 
       def password_already_used?
-        return true if !! self.password_reusable && ! self.password.nil? && self.old_passwords.where(hash_password: Digest::SHA512.hexdigest(self.password)).present?
+        return true if self.password_reusable > 0 && ! self.password.nil? && self.old_passwords.where(hash_password: Digest::SHA512.hexdigest(self.password)).present?
         return false
       end
 
       def archive_password
-        if !! self.password_reusable && self.encrypted_password_changed? && ! self.password.nil?
+        if self.password_reusable > 0 && self.encrypted_password_changed? && ! self.password.nil?
           if self.class.password_reusable_after > 0
             salt = self.password_salt_changed? ? self.password_salt_change.first : self.password_salt
             if ! password_already_used?
