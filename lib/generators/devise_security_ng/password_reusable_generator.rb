@@ -27,7 +27,10 @@ module DeviseSecurityNg
 
       def add_configs
         inject_into_file "config/initializers/devise.rb", "\n  # ==> Security NG Password Reusable\n  # Configure security ng password_reusable for devise\n\n" +
-        "  # Passwords to keep in archive, 0 to disable\n" +
+        "  # Passwords to keep in archive set\n" +
+        "  # false to disable\n" +
+        "  # 0 per user\n" +
+        "  # <num> global setting\n" +
         "  # config.password_reusable_after = 5\n" +
         "", :before => /end[ |\n|]+\Z/
       end

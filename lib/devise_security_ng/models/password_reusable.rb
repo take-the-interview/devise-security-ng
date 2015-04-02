@@ -32,7 +32,7 @@ module Devise
       def archive_password
         if !!self.password_reusable_archive_size
           if self.encrypted_password_changed? && ! self.password.nil?
-            if self.password_reusable_acrhive_size > 0
+            if self.password_reusable_archive_size > 0
               salt = self.password_salt_changed? ? self.password_salt_change.first : self.password_salt
               if ! password_already_used?
                 self.old_passwords.create!(
@@ -40,12 +40,12 @@ module Devise
                     hash_password: Digest::SHA512.hexdigest(self.password),
                     password_salt: salt
                   )
-                self.old_passwords.order(:id).reverse_order.offset(self.password_reusable_acrhive_size).destroy_all
+                self.old_passwords.order(:id).reverse_order.offset(self.password_reusable_archive_size).destroy_all
               end
             end
-          else
-            self.old_passwords.destroy_all
           end
+        else
+          self.old_passwords.destroy_all
         end
       end
 
