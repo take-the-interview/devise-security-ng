@@ -6,13 +6,14 @@ class DeviseAddSecurityNgPasswordReusable<%= table_name.camelize.singularize %> 
       t.string :password_salt
       t.integer :password_reusable_id, null: false
       t.integer :password_reusable_type, null: false
-      t.integer :password_reusable, default: 0
 
       t.timestamps
     end
+    add_column :<%= table_name %>, :password_reusable, :integer, default: 0
   end
   
   def self.down
     drop_table :old_passwords
+    remove_column :<%= table_name %>, :password_reusable
   end
 end

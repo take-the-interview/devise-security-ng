@@ -19,21 +19,30 @@ module Devise
       end
 
       def password_already_used?
-        return true if self.password_reusable > 0 && ! self.password.nil? && self.old_passwords.where(hash_password: Digest::SHA512.hexdigest(self.password)).present?
+        return true if self.password_reusable_archive_size > 0 && ! self.password.nil?
+          && self.old_passwords.where(hash_password: Digest::SHA512.hexdigest(self.password)).present?
         return false
       end
 
+      def password_reusable_archive_size
+        return 0 if self.class.password_reusable_after==false
+        return self.password_reusable if self.class.password_reusable_after == 0 && self.password_reusable > 0 
+        return self.class.password_reusable_after
+      end
+
       def archive_password
-        if self.password_reusable > 0 && self.encrypted_password_changed? && ! self.password.nil?
-          if self.class.password_reusable_after > 0
-            salt = self.password_salt_changed? ? self.password_salt_change.first : self.password_salt
-            if ! password_already_used?
-              self.old_passwords.create!(
-                  encrypted_password: self.encrypted_password_change.first,
-                  hash_password: Digest::SHA512.hexdigest(self.password),
-                  password_salt: salt
-                )
-              self.old_passwords.order(:id).reverse_order.offset(self.class.password_reusable_after).destroy_all
+        if !!self.password_reusable_archive_size
+          if self.encrypted_password_changed? && ! self.password.nil?
+            if self.password_reusable_acrhive_size > 0
+              salt = self.password_salt_changed? ? self.password_salt_change.first : self.password_salt
+              if ! password_already_used?
+                self.old_passwords.create!(
+                    encrypted_password: self.encrypted_password_change.first,
+                    hash_password: Digest::SHA512.hexdigest(self.password),
+                    password_salt: salt
+                  )
+                self.old_passwords.order(:id).reverse_order.offset(self.password_reusable_acrhive_size).destroy_all
+              end
             end
           else
             self.old_passwords.destroy_all
