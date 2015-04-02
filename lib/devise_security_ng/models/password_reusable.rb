@@ -19,8 +19,7 @@ module Devise
       end
 
       def password_already_used?
-        return true if self.password_reusable_archive_size > 0 && ! self.password.nil?
-          && self.old_passwords.where(hash_password: Digest::SHA512.hexdigest(self.password)).present?
+        return true if self.password_reusable_archive_size > 0 && ! self.password.nil? && self.old_passwords.where(hash_password: Digest::SHA512.hexdigest(self.password)).present?
         return false
       end
 
