@@ -22,7 +22,7 @@ $ bundle install
 
 ## Usage
 
-For devise_security_ng to work some of the built-in devise modules have to be turned off in user model:
+For devise_security_ng to work some of the built-in devise modules have to be turned off in User model:
 
 - Lockable
 
@@ -41,6 +41,9 @@ class User < ActiveRecord::Base
 	devise :database_authenticatable, ..... , :user_lockable, :password_reusable
 end
 ```
+
+Edit module configurations in config/initializers/devise.rb
+
 ## Copyright
 
 Copyright (c) 2010 Take The Interview Inc. See LICENSE for details.
