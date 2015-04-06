@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
 end
 ```
 
-Edit module configurations in config/initializers/devise.rb
+## Edit module configurations in config/initializers/devise.rb
 
 ## Copyright
 
