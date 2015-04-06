@@ -28,7 +28,7 @@ module DeviseSecurityNg
       def add_configs
         inject_into_file "config/initializers/devise.rb", "\n  # ==> Security NG Password Expirable\n  # Configure security ng password_expirable for devise\n\n" +
         "  # # Force password change after\n" +
-        "  # password_expiring_after = 90.days\n" +
+        "  # expire_password_after = 90.days\n" +
         "", :before => /end[ |\n|]+\Z/
       end
     end

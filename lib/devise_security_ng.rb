@@ -20,8 +20,8 @@ module Devise
   @@password_reusable_after = 5
 
   # Force password change after
-  mattr_accessor :password_expiring_after
-  @@password_expiring_after = 90.days
+  mattr_accessor :expire_password_after
+  @@expire_password_after = 90.days
 end
 
 module DeviseSecurityNg
