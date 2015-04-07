@@ -11,10 +11,16 @@ module Devise
         before_save :update_password_changed
       end
 
+      def is_password_expirable
+        return 0 if self.class.expire_password_after==false
+        return self.password_expirable if self.class.expire_password_after == 0 && self.password_expirable > 0 
+        return self.class.expire_password_after
+      end
+
       # is an password change required?
       def need_change_password?
-        if self.class.expire_password_after.is_a? Fixnum or self.class.expire_password_after.is_a? Float
-          self.password_changed_at.nil? or self.password_changed_at < self.class.expire_password_after.ago
+        if self.is_password_expirable.is_a? Fixnum or self.is_password_expirable.is_a? Float
+          self.password_changed_at.nil? or self.password_changed_at < self.is_password_expirable.days.ago
         else
           false
         end
@@ -22,7 +28,7 @@ module Devise
 
       # set a fake datetime so a password change is needed and save the record
       def need_change_password!
-        if self.class.expire_password_after.is_a? Fixnum or self.class.expire_password_after.is_a? Float
+        if self.is_password_expirable.is_a? Fixnum or self.is_password_expirable.is_a? Float
           need_change_password
           self.save(:validate => false)
         end
@@ -30,8 +36,8 @@ module Devise
 
       # set a fake datetime so a password change is needed
       def need_change_password
-        if self.class.expire_password_after.is_a? Fixnum or self.class.expire_password_after.is_a? Float
-          self.password_changed_at = self.class.expire_password_after.ago
+        if self.is_password_expirable.is_a? Fixnum or self.is_password_expirable.is_a? Float
+          self.password_changed_at = self.is_password_expirable.days.ago
         end
 
         # is date not set it will set default to need set new password next login
