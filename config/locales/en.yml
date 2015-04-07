@@ -3,6 +3,9 @@ en:
     messages:
       used_in_past: "was already used in the past!"
   devise:
+    password_expired:
+      updated: "Your new password is saved."
+      change_required: "Your password is expired. Please renew your password!"
     failure:
       locked: "Your account is locked."
       locked_3: "After 3 failed attempts your account has been locked for 5 minutes."

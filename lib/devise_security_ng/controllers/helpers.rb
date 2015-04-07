@@ -1,4 +1,4 @@
-module DeviseSecurityExtension
+module DeviseSecurityNg
   module Controllers
     module Helpers
       extend ActiveSupport::Concern

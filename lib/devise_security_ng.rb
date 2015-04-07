@@ -1,7 +1,8 @@
 require 'active_record'
+require 'active_support/core_ext/integer'
+require 'active_support/ordered_hash'
 require 'active_support/concern'
 require 'devise'
-require 'devise_security_ng'
 
 module Devise
   mattr_accessor :maximum_login_attempts
@@ -30,10 +31,11 @@ module DeviseSecurityNg
   end
 end
 
+Devise.add_module :password_expirable, :controller => :password_expirable, :model => 'devise_security_ng/models/password_expirable', :route => :password_expired
 Devise.add_module :user_lockable, :model => 'devise_security_ng/models/user_lockable'
 Devise.add_module :password_reusable, :model => 'devise_security_ng/models/password_reusable'
-Devise.add_module :password_expirable, :model => 'devise_security_ng/models/password_expirable'
 
 # requires
 require 'devise_security_ng/routes'
 require 'devise_security_ng/rails'
+require 'devise_security_ng/models/database_authenticatable_patch'
