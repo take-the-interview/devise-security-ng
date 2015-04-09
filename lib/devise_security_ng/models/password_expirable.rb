@@ -12,7 +12,6 @@ module Devise
       end
 
       def is_password_expirable
-        binding.pry
         return 0 if self.class.expire_password_after == false
         return self.password_expirable if self.class.expire_password_after == 0 && self.password_expirable > 0 
         return false if self.class.expire_password_after == 0
