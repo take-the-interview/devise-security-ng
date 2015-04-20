@@ -91,9 +91,9 @@ module Devise
 
         def locked_message
           case self.login_attempts
-          when 3..6
+          when 3..5
             :locked_3
-          when 6..9
+          when 6..8
             :locked_6
           when 9..1.0/0
             :locked_9
@@ -106,9 +106,9 @@ module Devise
         def lock_expired?
           if locked_at
             case self.login_attempts
-            when 3..6
-              (self.locked_at + 1.minutes).to_i < Time.current.to_i
-            when 6..9
+            when 3..5
+              (self.locked_at + 5.minutes).to_i < Time.current.to_i
+            when 6..8
               (self.locked_at + 60.minutes).to_i < Time.current.to_i
             when 9..1.0/0
               false
