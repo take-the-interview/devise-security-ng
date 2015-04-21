@@ -12,9 +12,14 @@ module Devise
         else
           self.assign_attributes(params, *options)
           self.valid?
-          self.errors.add(:current_password, current_password.blank? ? :blank : :invalid)
-          self.errors.add(:password, new_password.blank? ? :blank : :invalid)
-          self.errors.add(:password_confirmation, new_password_confirmation.blank? ? :blank : :invalid)
+
+          if current_password.blank?
+            self.errors.clear
+            self.errors.add(:current_password, :blank)
+          elsif !valid_password?(current_password)
+            self.errors.clear
+            self.errors.add(:current_password, :invalid)
+          end
           false
         end
 
