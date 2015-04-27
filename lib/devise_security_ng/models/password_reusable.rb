@@ -25,7 +25,7 @@ module Devise
 
       def password_reusable_archive_size
         return 0 if self.class.password_reusable_after==false
-        return self.password_reusable if self.class.password_reusable_after == 0 && self.password_reusable > 0 
+        return self.password_reusable if self.class.password_reusable_after == 0 && defined? self.password_reusable && self.password_reusable > 0 
         return self.class.password_reusable_after
       end
 
