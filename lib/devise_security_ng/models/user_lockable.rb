@@ -124,6 +124,10 @@ module Devise
         end
 
       module ClassMethods
+        def unlock_token
+          Devise.friendly_token
+        end
+
         ::Devise::Models.config(self, :maximum_login_attempts, :last_attempt_warning, :account_locked_warning)
       end
     end
