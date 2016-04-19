@@ -12,3 +12,4 @@ en:
       locked_6: "After 6 failed attempts your account has been locked for 60 minutes."
       locked_9: "After 9 failed attempts your account has been locked permanently. Please contact your administrator."
       last_attempt: "You have one more attempt before your account is locked."
+      unlock_instructions: "Your account has been locked"

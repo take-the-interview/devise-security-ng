@@ -12,6 +12,10 @@ module Devise
   mattr_accessor :last_attempt_warning
   @@last_attempt_warning = true
 
+  # Should we notify the owner of the account of imminent permanent account locking?
+  mattr_accessor :account_locked_warning
+  @@account_locked_warning = true
+
   # Activation flag
   mattr_accessor :user_lockable
   @@user_lockable = true

@@ -15,6 +15,8 @@ module Devise
       def unlock_access!
         self.locked_at = nil
         self.save!
+        if self.class.account_locked_warning && self.login_attempts >= 9
+          send_devise_notification(:unlock_instructions)
       end
 
       # Verifies whether a user is locked or not.
@@ -80,7 +82,7 @@ module Devise
       protected
 
         def attempts_exceeded?
-	  self.login_attempts ||= 0
+      	  self.login_attempts ||= 0
           self.login_attempts >= self.class.maximum_login_attempts
         end
 
@@ -121,7 +123,7 @@ module Devise
         end
 
       module ClassMethods
-        ::Devise::Models.config(self, :maximum_login_attempts, :last_attempt_warning)
+        ::Devise::Models.config(self, :maximum_login_attempts, :last_attempt_warning, :account_locked_warning)
       end
     end
   end

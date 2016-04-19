@@ -31,6 +31,8 @@ module DeviseSecurityNg
         "  # config.maximum_login_attempts = 3\n\n" +
         "  # Should we alert the user of imminent account locking?\n" +
         "  # config.last_attempt_warning = true\n" +
+        "  # Should we notify the owner of the account of imminent permanent account locking?\n" +
+        "  # config.account_locked_warning = true\n" +
         "", :before => /end[ |\n|]+\Z/
       end
     end
