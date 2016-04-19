@@ -9,15 +9,15 @@ module Devise
       def lock_access!
         self.locked_at = Time.current
         self.save!
+        if self.class.account_locked_warning && self.login_attempts >= 9
+          send_devise_notification(:unlock_instructions)
+        end
       end
 
       # Unlock a user by cleaning locked_at
       def unlock_access!
         self.locked_at = nil
         self.save!
-        if self.class.account_locked_warning && self.login_attempts >= 9
-          send_devise_notification(:unlock_instructions)
-        end
       end
 
       # Verifies whether a user is locked or not.
