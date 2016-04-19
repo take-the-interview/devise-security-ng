@@ -17,6 +17,7 @@ module Devise
         self.save!
         if self.class.account_locked_warning && self.login_attempts >= 9
           send_devise_notification(:unlock_instructions)
+        end
       end
 
       # Verifies whether a user is locked or not.
