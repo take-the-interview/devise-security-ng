@@ -8,10 +8,11 @@ module Devise
       # Lock a user
       def lock_access!
         self.locked_at = Time.current
-        self.save!
         if self.class.account_locked_warning && self.login_attempts >= 9
+          self.unlock_token = Devise.friendly_token
           send_devise_notification(:unlock_instructions)
         end
+        self.save!
       end
 
       # Unlock a user by cleaning locked_at

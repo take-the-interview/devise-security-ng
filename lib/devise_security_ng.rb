@@ -36,7 +36,7 @@ module DeviseSecurityNg
 end
 
 Devise.add_module :password_expirable, :controller => :password_expirable, :model => 'devise_security_ng/models/password_expirable', :route => :password_expired
-Devise.add_module :user_lockable, :model => 'devise_security_ng/models/user_lockable'
+Devise.add_module :user_lockable, :controller => :user_lockable, :model => 'devise_security_ng/models/user_lockable', :route => :unlock
 Devise.add_module :password_reusable, :model => 'devise_security_ng/models/password_reusable'
 
 # requires
