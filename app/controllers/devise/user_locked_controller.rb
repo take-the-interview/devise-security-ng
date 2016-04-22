@@ -9,7 +9,7 @@ class Devise::UserLockedController < DeviseController
                 @user.unlock_token = nil
                 @user.save!
 
-                redirect_to new_user_session_path, :notice => I18n.t('unlocked', {:scope => 'devise.success'})
+                redirect_to new_user_session_path, :notice => I18n.t('unlocked', {:scope => 'devise.success'}) and return
             end
         end
         redirect_to new_user_session_path
