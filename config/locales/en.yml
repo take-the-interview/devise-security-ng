@@ -2,6 +2,8 @@ en:
   errors:
     messages:
       used_in_past: "was already used in the past!"
+      equal_to_current_password: "must be different than the current password."
+      password_format: "must contain big, small letters and digits"
   devise:
     password_expired:
       updated: "Your new password is saved."

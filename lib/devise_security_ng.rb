@@ -27,6 +27,15 @@ module Devise
   # Force password change after N days
   mattr_accessor :expire_password_after
   @@expire_password_after = 90
+
+  # Validate password for strongness
+  mattr_accessor :password_regex
+  @@password_regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/
+
+  # enable email validation for :secure_validatable. (true, false, validation_options)
+  # dependency: need an email validator like rails_email_validator
+  mattr_accessor :email_validation
+  @@email_validation = true
 end
 
 module DeviseSecurityNg
@@ -38,6 +47,7 @@ end
 Devise.add_module :password_expirable, :controller => :password_expirable, :model => 'devise_security_ng/models/password_expirable', :route => :password_expired
 Devise.add_module :user_lockable, :controller => :user_lockable, :model => 'devise_security_ng/models/user_lockable', :route => :unlock
 Devise.add_module :password_reusable, :model => 'devise_security_ng/models/password_reusable'
+Devise.add_module :secure_validatable, :model => 'devise_security_ng/models/secure_validatable'
 
 # requires
 require 'devise_security_ng/routes'
