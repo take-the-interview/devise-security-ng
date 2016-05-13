@@ -6,7 +6,7 @@ module Devise
       extend  ActiveSupport::Concern
 
       included do
-        before_save :unlock_if_password_changed
+        after_save :unlock_if_password_changed
       end
 
       # Lock a user
