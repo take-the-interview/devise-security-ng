@@ -6,7 +6,7 @@ module Devise
       extend  ActiveSupport::Concern
 
       included do
-        after_save :unlock_if_password_changed
+        before_save :unlock_if_password_changed
       end
 
       # Lock a user
@@ -16,8 +16,12 @@ module Devise
       end
 
       # Unlock a user by cleaning locked_at
-      def unlock_access!
+      def unlock_access
         self.locked_at = nil
+      end
+
+      def unlock_access!
+        self.unlock_access
         self.save!
       end
 
@@ -132,7 +136,7 @@ module Devise
 
       private
         def unlock_if_password_changed
-          unlock_access! if self.encrypted_password_changed? and not self.locked_at_changed?
+          unlock_access if self.encrypted_password_changed? and not self.locked_at_changed?
         end
 
       module ClassMethods
