@@ -12,16 +12,18 @@ module Devise
       # Lock a user
       def lock_access!
         self.locked_at = Time.current
-        if self.class.account_locked_warning && self.login_attempts >= 9
-          self.unlock_token = Devise.friendly_token
-          send_devise_notification(:unlock_instructions)
-        end
         self.save!
       end
 
       # Unlock a user by cleaning locked_at
       def unlock_access!
         self.locked_at = nil
+        self.save!
+      end
+
+      def send_unlock_instructions
+        self.unlock_token = Devise.friendly_token
+        send_devise_notification(:unlock_instructions)
         self.save!
       end
 
@@ -55,11 +57,11 @@ module Devise
           if !!self.lockable
             self.login_attempts += 1
           end
-          if attempts_exceeded? && !access_locked?
-            lock_access!
-          else
-            self.save!
+          if attempts_exceeded?
+            lock_access! if !access_locked?
+            send_unlock_instructions if self.login_attempts == 9
           end
+          self.save!
           false
         end
       end
