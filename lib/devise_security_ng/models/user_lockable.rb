@@ -130,7 +130,7 @@ module Devise
 
       private
         def unlock_if_password_changed
-          unlock_access! if self.encrypted_password_changed?
+          unlock_access! if self.encrypted_password_changed? and not self.locked_at_changed?
         end
 
       module ClassMethods
