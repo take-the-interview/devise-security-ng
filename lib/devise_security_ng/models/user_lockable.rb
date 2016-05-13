@@ -5,6 +5,10 @@ module Devise
     module UserLockable
       extend  ActiveSupport::Concern
 
+      included do
+        before_save :unlock_if_password_changed
+      end
+
       # Lock a user
       def lock_access!
         self.locked_at = Time.current
@@ -122,6 +126,11 @@ module Devise
           else
             false
           end
+        end
+
+      private
+        def unlock_if_password_changed
+          unlock_access! if self.encrypted_password_changed?
         end
 
       module ClassMethods
