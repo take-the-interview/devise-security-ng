@@ -32,6 +32,10 @@ module Devise
   mattr_accessor :password_regex
   @@password_regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/
 
+  # Validate password for repeated characters
+  mattr_accessor :char_repeatable_limit
+  @@char_repeatable_limit = 0
+
   # enable email validation for :secure_validatable. (true, false, validation_options)
   # dependency: need an email validator like rails_email_validator
   mattr_accessor :email_validation

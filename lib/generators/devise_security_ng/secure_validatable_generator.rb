@@ -11,7 +11,9 @@ module DeviseSecurityNg
         "  # dependency: need an email validator like rails_email_validator\n" +
         "  # config.email_validation = true\n\n" +
         "  # Validate password for strongness\n" +
-        "  # config.password_regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/\n" +
+        "  # config.password_regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/\n\n" +
+        "  # How many times character can be repeated in a password (0 to disable)\n" +
+        "  # config.char_repeatable_limit = 0\n" +
         "", :before => /end[ |\n|]+\Z/
       end
     end

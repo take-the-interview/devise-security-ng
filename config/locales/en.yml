@@ -4,6 +4,7 @@ en:
       used_in_past: "was already used in the past!"
       equal_to_current_password: "must be different than the current password."
       password_format: "must contain big, small letters and digits"
+      char_repeated: "can not have more than %{char_repeatable_limit} repetitions of the same character."
   devise:
     password_expired:
       updated: "Your new password is saved."

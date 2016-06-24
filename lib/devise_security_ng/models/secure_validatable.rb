@@ -41,6 +41,9 @@ module Devise
 
           # don't allow use of the same password
           # validate :current_equal_password_validation
+
+          # Don't allow repetition of character
+          validate :char_repetition_validation, :if => :password_required?
         end
       end
 
@@ -54,6 +57,20 @@ module Devise
           dummy.encrypted_password = self.encrypted_password_change.first
           dummy.password_salt = self.password_salt_change.first if self.respond_to? :password_salt_change and not self.password_salt_change.nil?
           self.errors.add(:password, :equal_to_current_password) if dummy.valid_password?(self.password)
+        end
+      end
+
+      def char_repetition_validation
+        if self.class.char_repeatable_limit > 0
+          char_counts = Hash.new 0
+          self.password.split('').each do |char|
+            char.downcase!
+            char_counts[char] += 1
+            if char_counts[char] > self.class.char_repeatable_limit
+              self.errors.add(:password, :char_repeated, :char_repeatable_limit => self.class.char_repeatable_limit)
+              break
+            end
+          end
         end
       end
 
@@ -71,7 +88,7 @@ module Devise
       end
 
       module ClassMethods
-        Devise::Models.config(self, :password_regex, :password_length, :email_validation)
+        Devise::Models.config(self, :password_regex, :char_repeatable_limit, :password_length, :email_validation)
 
       private
         def has_uniqueness_validation_of_login?
