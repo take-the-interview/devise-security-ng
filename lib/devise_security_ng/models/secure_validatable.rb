@@ -64,7 +64,6 @@ module Devise
         if self.class.char_repeatable_limit > 0
           char_counts = Hash.new 0
           self.password.split('').each do |char|
-            char.downcase!
             char_counts[char] += 1
             if char_counts[char] > self.class.char_repeatable_limit
               self.errors.add(:password, :char_repeated, :char_repeatable_limit => self.class.char_repeatable_limit)
