@@ -61,7 +61,8 @@ module Devise
       end
 
       def char_repetition_validation
-        if self.class.char_repeatable_limit > 0
+        binding.pry
+        if !!self.char_limitable and self.class.char_repeatable_limit > 0
           char_counts = Hash.new 0
           self.password.split('').each do |char|
             char_counts[char] += 1
