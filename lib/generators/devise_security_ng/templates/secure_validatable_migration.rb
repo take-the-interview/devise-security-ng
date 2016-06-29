@@ -1,4 +1,4 @@
-class DeviseAddSecurityNgSecureValidatable<%= table_name.camelize.singularize %> < ActiveRecord::Migration
+class DeviseAddSecurityNgDeviseSecureValidatable<%= table_name.camelize.singularize %> < ActiveRecord::Migration
   def self.up
     add_column :<%= table_name %>, :char_limitable, :boolean, default: false
   end

@@ -22,7 +22,7 @@ module DeviseSecurityNg
       end
 
       def create_migration_file
-        migration_template 'secure_validatable_migration.rb', "db/migrate/devise_add_security_ng_devise_validatable_#{name.downcase}.rb"
+        migration_template 'secure_validatable_migration.rb', "db/migrate/devise_add_security_ng_devise_secure_validatable_#{name.downcase}.rb"
       end
 
       def add_configs
