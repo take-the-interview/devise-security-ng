@@ -1,20 +1,21 @@
 en:
   errors:
+    format: "%{message}"
     messages:
-      used_in_past: "was already used in the past!"
-      equal_to_current_password: "must be different than the current password."
-      password_format: "must contain big, small letters and digits"
-      char_repeated: "can not have more than %{char_repeatable_limit} repetitions of the same character."
+      used_in_past: "That password has previously been used. Please try another."
+      equal_to_current_password: "Password must be different than the current password."
+      password_format: "Password must contain big, small letters and digits"
+      char_repeated: "Password can not have more than %{char_repeatable_limit} repetitions of the same character."
   devise:
     password_expired:
       updated: "Your new password is saved."
       change_required: "Your password is expired. Please renew your password!"
     failure:
       locked: "Your account is locked."
-      locked_3: "After 3 failed attempts your account has been locked for 5 minutes."
-      locked_6: "After 6 failed attempts your account has been locked for 60 minutes."
+      locked_3: "Due to failed login attempts, your account will be locked for the next 5 minutes."
+      locked_6: "Due to failed login attempts, your account will be locked for the next 60 minutes. Please check your email for password reset information."
       locked_9: "After 9 failed attempts your account has been locked permanently. Please contact your administrator."
-      last_attempt: "You have one more attempt before your account is locked."
+      last_attempt: "Invalid Email or Password. You have one more attempt until your account is locked."
       unlock_instructions: "Your account has been locked"
     success:
       unlocked: "Your account is unlocked."
