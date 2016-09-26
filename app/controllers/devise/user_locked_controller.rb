@@ -1,5 +1,5 @@
 class Devise::UserLockedController < DeviseController
-    prepend_before_filter :require_no_authentication
+    prepend_before_action :require_no_authentication
 
     def show
         if not params[:unlock_token].empty?
