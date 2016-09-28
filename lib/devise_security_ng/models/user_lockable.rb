@@ -26,8 +26,9 @@ module Devise
       end
 
       def send_unlock_instructions
-        self.unlock_token = Devise.friendly_token
-        send_devise_notification(:unlock_instructions)
+        raw, enc = Devise.token_generator.generate(self.class, :unlock_token)
+        self.unlock_token = enc
+        send_devise_notification(:unlock_instructions, raw, {})
         self.save!
       end
 
@@ -58,12 +59,12 @@ module Devise
           true
         else
           self.login_attempts ||= 0
-          if !!self.lockable
+          if !!self.lockable && !access_locked?
             self.login_attempts += 1
           end
           if attempts_exceeded?
+            send_unlock_instructions if ( !access_locked? && ( self.login_attempts == 6 || self.login_attempts == 9 ) )
             lock_access! if !access_locked?
-            send_unlock_instructions if self.login_attempts == 9
           end
           self.save!
           false
@@ -94,22 +95,25 @@ module Devise
       protected
 
         def attempts_exceeded?
+#          binding.pry
       	  self.login_attempts ||= 0
-          self.login_attempts >= self.class.maximum_login_attempts
+#          self.login_attempts >= self.class.maximum_login_attempts
+          [3, 6].include?(self.login_attempts) || self.login_attempts >= 9
         end
 
         def last_attempt?
           self.login_attempts ||=0 
-          self.login_attempts == self.class.maximum_login_attempts - 1
+#          self.login_attempts == self.class.maximum_login_attempts - 1
+          [2, 5, 8].include?(self.login_attempts)
         end
 
         def locked_message
           case self.login_attempts
-          when 3..5
+          when 3
             :locked_3
-          when 6..8
+          when 6
             :locked_6
-          when 9..1.0/0
+          when 9
             :locked_9
           else
             :locked
@@ -120,9 +124,9 @@ module Devise
         def lock_expired?
           if locked_at
             case self.login_attempts
-            when 3..5
+            when 3
               (self.locked_at + 5.minutes).to_i < Time.current.to_i
-            when 6..8
+            when 6
               (self.locked_at + 60.minutes).to_i < Time.current.to_i
             when 9..1.0/0
               false
@@ -140,10 +144,6 @@ module Devise
         end
 
       module ClassMethods
-        def unlock_token
-          Devise.friendly_token
-        end
-
         ::Devise::Models.config(self, :maximum_login_attempts, :last_attempt_warning, :account_locked_warning)
       end
     end

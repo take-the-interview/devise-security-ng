@@ -3,7 +3,8 @@ class Devise::UserLockedController < DeviseController
 
     def show
         if not params[:unlock_token].empty?
-            @user = User.find_by_unlock_token(params[:unlock_token])
+            unlock_token_digest = Devise.token_generator.digest(self, :unlock_token, params[:unlock_token])
+            @user = User.find_by_unlock_token(unlock_token_digest)
             if @user
                 @user.locked_at = nil
                 @user.unlock_token = nil
