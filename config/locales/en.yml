@@ -14,7 +14,7 @@ en:
       locked: "Your account is locked."
       locked_3: "Due to failed login attempts, your account will be locked for the next 5 minutes."
       locked_6: "Due to failed login attempts, your account will be locked for the next 60 minutes. Please check your email for password reset information."
-      locked_9: "After 9 failed attempts your account has been locked permanently. Please contact your administrator."
+      locked_9: "Due to failed login attempts, your account will be locked permanently. Please check your email for password reset information."
       last_attempt: "Invalid Email or Password. You have one more attempt until your account is locked."
       unlock_instructions: "Your account has been locked"
     success:
