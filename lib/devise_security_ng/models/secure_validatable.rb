@@ -64,7 +64,6 @@ module Devise
         if !!self.char_limitable and self.class.char_repeatable_limit > 0
           if /(.)\1{#{self.class.char_repeatable_limit},}/ =~ self.password
               self.errors.add(:password, :char_repeated, :char_repeatable_limit => self.class.char_repeatable_limit)
-              break
           end
         end
       end
